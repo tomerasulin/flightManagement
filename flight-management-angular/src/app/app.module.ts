@@ -16,6 +16,8 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { DialogComponent } from './dialog/dialog.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
     FlightListComponent,
     FlightSearchComponent,
     FlightFormComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogContent,
     MatDialogTitle,
     MatSelectModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
