@@ -1,0 +1,42 @@
+<p>flight-form works!</p>
+<h1 mat-dialog-title>Create/Edit Flight</h1>
+<mat-dialog-content>
+  <form (submit)="onSubmit()" class="flight_form">
+    <mat-form-field appearance="fill">
+      <mat-label>Flight Number:</mat-label>
+      <input matInput type="text" required placeholder="Ex. AB1234" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Landing Airport:</mat-label>
+      <input matInput type="text" required placeholder="Ex. JFK" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Takeoff Airport:</mat-label>
+      <input matInput type="text" required placeholder="Ex. LAX" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Status:</mat-label>
+      <mat-select>
+        <mat-option value="hangar">Hangar</mat-option>
+        <mat-option value="airborne">Airborne</mat-option>
+        <mat-option value="malfunction">Malfunction</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Takeoff Time:</mat-label>
+      <input matInput type="datetime-local" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Landing Time:</mat-label>
+      <input matInput type="datetime-local" required />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button cdkFocusInitial type="submit">Submit</button>
+</mat-dialog-actions>

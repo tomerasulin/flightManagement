@@ -9,9 +9,21 @@ import { MatTableModule } from '@angular/material/table';
 import { FlightSearchComponent } from './flight-search/flight-search.component';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlightFormComponent } from './flight-form/flight-form.component';
+import {
+  MatDialogContent,
+  MatDialogModule,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  declarations: [AppComponent, FlightListComponent, FlightSearchComponent],
+  declarations: [
+    AppComponent,
+    FlightListComponent,
+    FlightSearchComponent,
+    FlightFormComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -19,6 +31,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatTableModule,
     MatInputModule,
     BrowserAnimationsModule,
+    MatDialogModule,
+    MatDialogContent,
+    MatDialogTitle,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
