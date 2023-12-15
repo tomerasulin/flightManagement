@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FlightService } from '../flight.service';
 import { Flight } from '../flight.model';
 import { interval } from 'rxjs';
@@ -10,6 +10,8 @@ import { interval } from 'rxjs';
 })
 export class FlightListComponent implements OnInit {
   constructor(private flightService: FlightService) {}
+
+  @Input() filteredFlight: Flight[] = [];
 
   flights: Flight[] = [];
 
@@ -32,7 +34,11 @@ export class FlightListComponent implements OnInit {
 
   loadFlights(): void {
     this.flightService.getFlights().subscribe((res) => {
-      this.flights = res;
+      if (this.filteredFlight.length > 0) {
+        this.flights = this.filteredFlight;
+      } else {
+        this.flights = res;
+      }
     });
   }
 }

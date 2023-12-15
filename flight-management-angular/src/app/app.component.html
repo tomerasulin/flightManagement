@@ -1,6 +1,6 @@
 <h1 class="header_title">Flight Management</h1>
 <div class="header">
-  <app-flight-search></app-flight-search>
+  <app-flight-search (filteredFlights)="onFilter($event)"></app-flight-search>
   <app-dialog></app-dialog>
 </div>
-<app-flight-list></app-flight-list>
+<app-flight-list [filteredFlight]="filteredFlights"></app-flight-list>

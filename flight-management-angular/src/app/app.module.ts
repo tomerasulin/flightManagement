@@ -42,7 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [FlightListComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
