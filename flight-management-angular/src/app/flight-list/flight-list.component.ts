@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FlightService } from '../flight.service';
+import { Flight } from '../flight.model';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-flight-list',
@@ -9,8 +11,8 @@ import { FlightService } from '../flight.service';
 export class FlightListComponent implements OnInit {
   constructor(private flightService: FlightService) {}
 
-  flights: any[] = [];
-  
+  flights: Flight[] = [];
+
   headers: string[] = [
     'flightNumber',
     'landingAirport',
@@ -21,8 +23,16 @@ export class FlightListComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.flightService.getFlights().subscribe((flights) => {
-      this.flights = flights;
+    this.loadFlights();
+
+    interval(1500).subscribe(() => {
+      this.loadFlights();
+    });
+  }
+
+  loadFlights(): void {
+    this.flightService.getFlights().subscribe((res) => {
+      this.flights = res;
     });
   }
 }
