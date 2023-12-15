@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FlightService } from '../flight.service';
 import { Flight } from '../flight.model';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-flight-form',
@@ -9,7 +10,10 @@ import { Flight } from '../flight.model';
   styleUrl: './flight-form.component.scss',
 })
 export class FlightFormComponent implements OnInit {
-  constructor(private flightService: FlightService) {}
+  constructor(
+    private flightService: FlightService,
+    public dialogRef: MatDialogRef<FlightFormComponent>
+  ) {}
 
   flight = {
     flightNumber: '',
@@ -51,5 +55,11 @@ export class FlightFormComponent implements OnInit {
       .subscribe(() => {
         console.log('Accepted');
       });
+
+    this.closeDialog();
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }
