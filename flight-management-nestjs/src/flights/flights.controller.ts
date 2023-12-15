@@ -9,6 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { FlightsService } from './flights.service';
+import { Flight } from './flight.schema';
 
 @Controller('flights')
 export class FlightsController {
@@ -24,6 +25,11 @@ export class FlightsController {
     return this.flightService.findAll();
   }
 
+  @Get('filter')
+  async findByFilter(@Query('term') filter: string): Promise<Flight[]> {
+    return this.flightService.findByFilter(filter);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.flightService.findOne(id);
@@ -34,13 +40,8 @@ export class FlightsController {
     return this.flightService.update(id, updateFlightDto);
   }
 
-  //   @Delete(':id')
-  //   remove(@Param('id') id: string) {
-  //     return this.flightService.remove(id);
-  //   }
-
-  @Get('filter')
-  async findByFilter(@Query() filter: any) {
-    return this.flightService.findByFilter(filter);
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.flightService.remove(id);
   }
 }

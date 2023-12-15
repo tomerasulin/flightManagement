@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export type FlightDocument = Flight & Document;
 
@@ -22,6 +22,8 @@ export class Flight {
 
   @Prop({ required: true })
   takeoffTime: string;
+
+  _id: Types.ObjectId;
 }
 
 export const FlightSchema = SchemaFactory.createForClass(Flight);

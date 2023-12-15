@@ -43,13 +43,24 @@ export class FlightsService {
     return res;
   }
 
-  //   async remove(id: string): Promise<Flight> {
-  //     const deletedFlight = await this.flightModel.findByIdAndDelete(id).exec();
-  //     return deletedFlight ? (deletedFlight.toObject() as Flight) : null;
-  //   }
+  async remove(id: string): Promise<any> {
+    const deletedFlight = this.flightsModel.findByIdAndDelete(id).exec();
+    this.emitUpdate();
+    return deletedFlight;
+  }
 
-  async findByFilter(filter: any): Promise<Flight[]> {
-    const res = this.flightsModel.find(filter).exec();
+  async findByFilter(filter: string): Promise<Flight[]> {
+    const res = this.flightsModel
+      .find({
+        $or: [
+          { flightNumber: { $regex: filter, $options: 'i' } }, // Case-insensitive regex match
+          { takeoffAirport: { $regex: filter, $options: 'i' } },
+          { takeoffTime: { $regex: filter, $options: 'i' } },
+          { landingAirport: { $regex: filter, $options: 'i' } },
+          { landingTime: { $regex: filter, $options: 'i' } },
+        ],
+      })
+      .exec();
     this.emitUpdate();
     return res;
   }
