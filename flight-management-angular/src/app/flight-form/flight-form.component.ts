@@ -15,6 +15,8 @@ export class FlightFormComponent implements OnInit {
     public dialogRef: MatDialogRef<FlightFormComponent>
   ) {}
 
+  flights: Flight[] = [];
+
   flight = {
     flightNumber: '',
     landingAirport: '',
@@ -24,8 +26,14 @@ export class FlightFormComponent implements OnInit {
     landingTime: '',
   };
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.flightService.getFlights().subscribe((flights) => {
+      this.flights = flights;
+    });
+  }
 
+  // TODO
+  // Handling form inputs
   onSubmit(flightForm: NgForm) {
     let flightNumber = flightForm.form.value.flightNumber;
     let landingAirport = flightForm.form.value.landingAirport;
@@ -43,18 +51,37 @@ export class FlightFormComponent implements OnInit {
       landingTime
     );
 
-    this.flightService
-      .createFlight({
-        flightNumber,
-        landingAirport,
-        takeoffAirport,
-        status,
-        takeoffTime,
-        landingTime,
-      } as Flight)
-      .subscribe(() => {
-        console.log('Accepted');
-      });
+    const targetFlight = this.flights.find(
+      (obj) => obj.flightNumber === flightNumber
+    );
+
+    if (targetFlight) {
+      this.flightService
+        .updateFlight(targetFlight._id, {
+          flightNumber,
+          landingAirport,
+          takeoffAirport,
+          status,
+          takeoffTime,
+          landingTime,
+        } as Flight)
+        .subscribe(() => {
+          console.log('Updated');
+        });
+    } else {
+      this.flightService
+        .createFlight({
+          flightNumber,
+          landingAirport,
+          takeoffAirport,
+          status,
+          takeoffTime,
+          landingTime,
+        } as Flight)
+        .subscribe(() => {
+          console.log('Created');
+        });
+    }
 
     this.closeDialog();
   }

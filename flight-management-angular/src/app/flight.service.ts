@@ -11,13 +11,19 @@ const API_BASE_URL = 'http://localhost:3000';
 export class FlightService {
   constructor(private http: HttpClient) {}
 
-  getFlights(): Observable<any> {
-    return this.http.get(`${API_BASE_URL}/flights`);
+  getFlights(): Observable<Flight[]> {
+    return this.http.get<Flight[]>(`${API_BASE_URL}/flights`);
   }
 
-  createFlight(flightData: any) {
-    console.log('Inside flight service');
-    console.log(flightData);
+  createFlight(flightData: Flight): Observable<Flight> {
     return this.http.post<Flight>(`${API_BASE_URL}/flights`, flightData);
+  }
+
+  updateFlight(flightNumber: string, flightData: Flight): Observable<Flight> {
+    return this.http.put<Flight>(`${API_BASE_URL}/flights/${flightNumber}`, flightData);
+  }
+
+  getFlight(flightNumber: string): Observable<Flight> {
+    return this.http.get<Flight>(`${API_BASE_URL}/flights/${flightNumber}`);
   }
 }

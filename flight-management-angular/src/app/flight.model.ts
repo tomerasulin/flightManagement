@@ -1,4 +1,5 @@
 export interface Flight {
+  _id: string;
   flightNumber: string;
   takeoffAirport: string;
   landingAirport: string;
