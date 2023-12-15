@@ -18,6 +18,7 @@ import {
 import { MatSelectModule } from '@angular/material/select';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogTitle,
     MatSelectModule,
     MatButtonModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -9,8 +9,8 @@ import { FlightService } from '../flight.service';
 export class FlightListComponent implements OnInit {
   constructor(private flightService: FlightService) {}
 
-  flights = this.flightService.getFlights();
-
+  flights: any[] = [];
+  
   headers: string[] = [
     'flightNumber',
     'landingAirport',
@@ -20,5 +20,9 @@ export class FlightListComponent implements OnInit {
     'landingTime',
   ];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.flightService.getFlights().subscribe((flights) => {
+      this.flights = flights;
+    });
+  }
 }
