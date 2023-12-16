@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Flight } from './flight.model';
 import { HttpClient } from '@angular/common/http';
 import { Socket } from 'ngx-socket-io';
@@ -10,7 +10,9 @@ const API_BASE_URL = 'http://localhost:3000';
   providedIn: 'root',
 })
 export class FlightService {
-  constructor(private socket: Socket, private http: HttpClient) {}
+  constructor(private socket: Socket, private http: HttpClient) {
+    this.socket.on('flights', (res: any) => {});
+  }
 
   getInitialFlights(): Observable<Flight[]> {
     return this.socket.fromEvent<Flight[]>('flights');

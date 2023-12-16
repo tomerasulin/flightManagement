@@ -1,15 +1,19 @@
-<mat-table [dataSource]="flights$ | async" class="mat-elevation-z8">
+<mat-table
+  [dataSource]="flights$ | async"
+  class="mat-elevation-z8"
+  class="list"
+>
   <ng-container matColumnDef="flightNumber">
     <th mat-header-cell *matHeaderCellDef>Flight Number</th>
     <td mat-cell *matCellDef="let value">{{ value.flightNumber }}</td>
   </ng-container>
-  <ng-container matColumnDef="landingAirport">
-    <th mat-header-cell *matHeaderCellDef>Landing Airport</th>
-    <td mat-cell *matCellDef="let value">{{ value.landingAirport }}</td>
-  </ng-container>
   <ng-container matColumnDef="takeoffAirport">
     <th mat-header-cell *matHeaderCellDef>Takeoff Airport</th>
     <td mat-cell *matCellDef="let value">{{ value.takeoffAirport }}</td>
+  </ng-container>
+  <ng-container matColumnDef="landingAirport">
+    <th mat-header-cell *matHeaderCellDef>Landing Airport</th>
+    <td mat-cell *matCellDef="let value">{{ value.landingAirport }}</td>
   </ng-container>
   <ng-container matColumnDef="status">
     <th mat-header-cell *matHeaderCellDef>Status</th>
