@@ -9,7 +9,7 @@ import { Flight } from './flight.model';
 export class AppComponent {
   filteredFlights: Flight[] = [];
 
-  onFilter(filteredFlights: Flight[]){
+  onFilter(filteredFlights: Flight[]) {
     this.filteredFlights = filteredFlights;
   }
 }

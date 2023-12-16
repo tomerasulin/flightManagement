@@ -14,7 +14,9 @@ export class FlightSearchComponent implements OnInit {
 
   @Output() filteredFlights = new EventEmitter<Flight[]>();
 
-  onInput(term: string): void {
-    this.flightService.searchFlights(term);
+  async onInput(term: string) {
+    this.flightService.searchFlights(term).subscribe((res) => {
+      this.filteredFlights.emit(res);
+    });
   }
 }

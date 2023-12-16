@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class FlightListComponent implements OnInit {
   constructor(private flightService: FlightService) {}
 
-  @Input() filteredFlight: Flight[] = [];
+  @Input() filteredFlights: Flight[] = [];
 
   flights$: Observable<Flight[]> = new Observable<Flight[]>();
 
@@ -25,6 +25,19 @@ export class FlightListComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.flights$ = this.flightService.getInitialFlights();
+    setInterval(() => {
+      this.loadFlights();
+    }, 1000);
+  }
+
+  loadFlights() {
+    if (this.filteredFlights.length > 0) {
+      this.flights$ = new Observable<Flight[]>((observer) => {
+        observer.next(this.filteredFlights);
+        observer.complete();
+      });
+    } else {
+      this.flights$ = this.flightService.getInitialFlights();
+    }
   }
 }

@@ -10,9 +10,7 @@ const API_BASE_URL = 'http://localhost:3000';
   providedIn: 'root',
 })
 export class FlightService {
-  constructor(private socket: Socket, private http: HttpClient) {
-    this.socket.on('flights', (res: any) => {});
-  }
+  constructor(private socket: Socket, private http: HttpClient) {}
 
   getInitialFlights(): Observable<Flight[]> {
     return this.socket.fromEvent<Flight[]>('flights');
@@ -37,7 +35,9 @@ export class FlightService {
     return this.http.get<Flight>(`${API_BASE_URL}/flights/${flightNumber}`);
   }
 
-  searchFlights(term: string): void {
-    this.http.get<Flight[]>(`${API_BASE_URL}/flights/filter?term=${term}`);
+  searchFlights(term: string): Observable<Flight[]> {
+    return this.http.get<Flight[]>(
+      `${API_BASE_URL}/flights/filter?term=${term}`
+    );
   }
 }
