@@ -17,8 +17,8 @@ export class FlightListComponent implements OnInit {
 
   headers: string[] = [
     'flightNumber',
-    'landingAirport',
     'takeoffAirport',
+    'landingAirport',
     'status',
     'takeoffTime',
     'landingTime',

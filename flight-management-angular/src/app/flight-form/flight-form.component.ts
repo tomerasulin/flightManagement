@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {
+  NgForm,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { FlightService } from '../flight.service';
 import { Flight } from '../flight.model';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -32,47 +37,14 @@ export class FlightFormComponent implements OnInit {
     });
   }
 
-  // TODO
-  // Handling form inputs
   onSubmit(flightForm: NgForm) {
-    let flightNumber = flightForm.form.value.flightNumber;
-    let landingAirport = flightForm.form.value.landingAirport;
-    let takeoffAirport = flightForm.form.value.takeoffAirport;
-    let status = flightForm.form.value.status;
-    let takeoffTime = flightForm.form.value.takeoffTime;
-    let landingTime = flightForm.form.value.landingTime;
-
-    console.log(
-      flightNumber,
-      landingAirport,
-      takeoffAirport,
-      status,
-      takeoffTime,
-      landingTime
-    );
-
-    const targetFlight = this.flights.find(
-      (obj) => obj.flightNumber === flightNumber
-    );
+    const flightData: Flight = flightForm.value as Flight;
+    const targetFlight = this.flights.find(flight => flight.flightNumber === flightData.flightNumber);
 
     if (targetFlight) {
-      this.flightService.updateFlight(targetFlight._id, {
-        flightNumber,
-        landingAirport,
-        takeoffAirport,
-        status,
-        takeoffTime,
-        landingTime,
-      } as Flight);
+      this.flightService.updateFlight(targetFlight._id, flightData);
     } else {
-      this.flightService.createFlight({
-        flightNumber,
-        landingAirport,
-        takeoffAirport,
-        status,
-        takeoffTime,
-        landingTime,
-      } as Flight);
+      this.flightService.createFlight(flightData);
     }
 
     this.closeDialog();
@@ -81,4 +53,19 @@ export class FlightFormComponent implements OnInit {
   closeDialog(): void {
     this.dialogRef.close();
   }
+}
+
+export function landingTimeValidator(
+  takeoffTimeControl: AbstractControl
+): ValidatorFn {
+  return (landingTimeControl: AbstractControl): ValidationErrors | null => {
+    const takeoffTime = new Date(takeoffTimeControl.value);
+    const landingTime = new Date(landingTimeControl.value);
+
+    if (landingTime <= takeoffTime) {
+      return { invalidLandingTime: true };
+    }
+
+    return null;
+  };
 }
