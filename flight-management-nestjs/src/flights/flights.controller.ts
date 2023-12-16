@@ -16,7 +16,7 @@ export class FlightsController {
   constructor(private flightService: FlightsService) {}
 
   @Post()
-  async create(@Body() createFlightDto: any) {
+  async create(@Body() createFlightDto: Flight) {
     return this.flightService.create(createFlightDto);
   }
 
