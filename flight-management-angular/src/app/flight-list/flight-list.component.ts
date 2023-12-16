@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FlightService } from '../flight.service';
 import { Flight } from '../flight.model';
-import { Observable, interval } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-flight-list',
@@ -17,8 +17,8 @@ export class FlightListComponent implements OnInit {
 
   headers: string[] = [
     'flightNumber',
-    'takeoffAirport',
     'landingAirport',
+    'takeoffAirport',
     'status',
     'takeoffTime',
     'landingTime',
