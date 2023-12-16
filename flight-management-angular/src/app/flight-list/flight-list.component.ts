@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FlightService } from '../flight.service';
 import { Flight } from '../flight.model';
 import { Observable } from 'rxjs';
@@ -25,9 +25,13 @@ export class FlightListComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    setInterval(() => {
+    this.loadFlights();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['filteredFlights'] && !changes['filteredFlights'].firstChange) {
       this.loadFlights();
-    }, 1000);
+    }
   }
 
   loadFlights() {
