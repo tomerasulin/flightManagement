@@ -21,7 +21,7 @@ export class FlightsController {
   }
 
   @Get()
-  async findAll() {
+  findAll() {
     return this.flightService.findAll();
   }
 

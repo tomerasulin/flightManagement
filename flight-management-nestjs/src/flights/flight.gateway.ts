@@ -7,18 +7,23 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { FlightsService } from './flights.service';
+import { Inject, forwardRef } from '@nestjs/common';
 
 @WebSocketGateway({ cors: { origin: ['http://localhost:4200'] } })
 export class FlightGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
-  constructor(private flightsService: FlightsService) {}
+  constructor(
+    @Inject(forwardRef(() => FlightsService))
+    private flightsService: FlightsService,
+  ) {} // resolve the circular DI
 
   async handleConnection(client: Socket) {
     console.log('Connected client: ', client.id);
     const res = await this.flightsService.findAll();
     client.emit('flights', res);
+    this.flightsService.startPeriodUpate();
   }
 
   handleDisconnect(client: Socket) {
