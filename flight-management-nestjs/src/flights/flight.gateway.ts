@@ -43,4 +43,10 @@ export class FlightGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const res = await this.flightsService.findAll();
     client.emit('flights', res);
   }
+
+  // @SubscribeMessage('searchFlight')
+  // async handleSearchlight(client: Socket, payload: any) {
+  //   const res = await this.flightsService.findByFilter(payload);
+  //   client.emit('flights', res);
+  // }
 }
