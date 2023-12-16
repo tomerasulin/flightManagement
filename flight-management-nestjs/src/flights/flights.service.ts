@@ -48,7 +48,10 @@ export class FlightsService {
   }
 
   async findByFilter(filter: string): Promise<Flight[]> {
-    const res = this.flightsModel
+    if (filter.trim() === '') {
+      return [];
+    }
+    const res = await this.flightsModel
       .find({
         $or: [
           { flightNumber: { $regex: filter, $options: 'i' } }, // Case-insensitive regex match
