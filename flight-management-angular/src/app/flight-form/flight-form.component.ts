@@ -56,31 +56,23 @@ export class FlightFormComponent implements OnInit {
     );
 
     if (targetFlight) {
-      this.flightService
-        .updateFlight(targetFlight._id, {
-          flightNumber,
-          landingAirport,
-          takeoffAirport,
-          status,
-          takeoffTime,
-          landingTime,
-        } as Flight)
-        .subscribe(() => {
-          console.log('Updated');
-        });
+      this.flightService.updateFlight(targetFlight._id, {
+        flightNumber,
+        landingAirport,
+        takeoffAirport,
+        status,
+        takeoffTime,
+        landingTime,
+      } as Flight);
     } else {
-      this.flightService
-        .createFlight({
-          flightNumber,
-          landingAirport,
-          takeoffAirport,
-          status,
-          takeoffTime,
-          landingTime,
-        } as Flight)
-        .subscribe(() => {
-          console.log('Created');
-        });
+      this.flightService.createFlight({
+        flightNumber,
+        landingAirport,
+        takeoffAirport,
+        status,
+        takeoffTime,
+        landingTime,
+      } as Flight);
     }
 
     this.closeDialog();

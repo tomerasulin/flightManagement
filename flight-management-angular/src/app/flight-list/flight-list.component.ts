@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FlightService } from '../flight.service';
 import { Flight } from '../flight.model';
-import { interval } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 
 @Component({
   selector: 'app-flight-list',
@@ -13,7 +13,7 @@ export class FlightListComponent implements OnInit {
 
   @Input() filteredFlight: Flight[] = [];
 
-  flights: Flight[] = [];
+  flights$: Observable<Flight[]> = new Observable<Flight[]>();
 
   headers: string[] = [
     'flightNumber',
@@ -25,20 +25,6 @@ export class FlightListComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.loadFlights();
-
-    interval(1500).subscribe(() => {
-      this.loadFlights();
-    });
-  }
-
-  loadFlights(): void {
-    this.flightService.getFlights().subscribe((res) => {
-      if (this.filteredFlight.length > 0) {
-        this.flights = this.filteredFlight;
-      } else {
-        this.flights = res;
-      }
-    });
+    this.flights$ = this.flightService.getInitialFlights();
   }
 }

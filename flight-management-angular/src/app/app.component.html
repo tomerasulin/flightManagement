@@ -3,4 +3,6 @@
   <app-flight-search (filteredFlights)="onFilter($event)"></app-flight-search>
   <app-dialog></app-dialog>
 </div>
-<app-flight-list [filteredFlight]="filteredFlights"></app-flight-list>
+<div class="content">
+  <app-flight-list [filteredFlight]="filteredFlights"></app-flight-list>
+</div>

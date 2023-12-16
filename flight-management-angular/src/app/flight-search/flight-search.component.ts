@@ -8,17 +8,13 @@ import { Flight } from '../flight.model';
   styleUrl: './flight-search.component.scss',
 })
 export class FlightSearchComponent implements OnInit {
-  constructor(
-    private flightService: FlightService,
-  ) {}
+  constructor(private flightService: FlightService) {}
 
   ngOnInit(): void {}
 
-  @Output() filteredFlights = new EventEmitter<Flight[]>()
+  @Output() filteredFlights = new EventEmitter<Flight[]>();
 
-  onInput(term: string) {
-    this.flightService.searchFlights(term).subscribe((filteredFlights) => {
-      this.filteredFlights.emit(filteredFlights);
-    });
+  onInput(term: string): void {
+    this.flightService.searchFlights(term);
   }
 }
