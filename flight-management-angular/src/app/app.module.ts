@@ -18,6 +18,11 @@ import {
 import { MatSelectModule } from '@angular/material/select';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { LandingTimeValidatorDirective } from './landing-time-validator.directive';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [
@@ -26,6 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
     FlightSearchComponent,
     FlightFormComponent,
     DialogComponent,
+    LandingTimeValidatorDirective,
   ],
   imports: [
     BrowserModule,
@@ -39,8 +45,10 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogTitle,
     MatSelectModule,
     MatButtonModule,
+    HttpClientModule,
+    SocketIoModule.forRoot(config),
   ],
-  providers: [],
+  providers: [FlightListComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

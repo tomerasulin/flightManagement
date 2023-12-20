@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FlightService } from '../flight.service';
+import { Flight } from '../flight.model';
 
 @Component({
   selector: 'app-flight-search',
@@ -9,14 +10,13 @@ import { FlightService } from '../flight.service';
 export class FlightSearchComponent implements OnInit {
   constructor(private flightService: FlightService) {}
 
-  @Output() submitted = new EventEmitter<string>();
-
-  term: string = '';
-
   ngOnInit(): void {}
 
-  onSubmit(event: any) {
-    event.preventDefault();
-    this.submitted.emit(this.term);
+  @Output() filteredFlights = new EventEmitter<Flight[]>();
+
+  async onInput(term: string) {
+    this.flightService.searchFlights(term).subscribe((res) => {
+      this.filteredFlights.emit(res);
+    });
   }
 }

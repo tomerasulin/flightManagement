@@ -11,10 +11,39 @@
         matInput
         type="text"
         required
+        pattern="[A-Z]{2}[0-9]{3,4}"
         placeholder="Ex. AB1234"
         [(ngModel)]="flight.flightNumber"
         name="flightNumber"
+        #flightNumber="ngModel"
       />
+      <mat-error
+        *ngIf="
+          flightNumber.invalid && (flightNumber.dirty || flightNumber.touched)
+        "
+        >should match the pattern (e.g., AB1234).
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Takeoff Airport:</mat-label>
+      <input
+        matInput
+        type="text"
+        required
+        pattern="[A-Z]{3}"
+        placeholder="Ex. LAX"
+        [(ngModel)]="flight.takeoffAirport"
+        name="takeoffAirport"
+        #takeoffAirport="ngModel"
+      />
+      <mat-error
+        *ngIf="
+          takeoffAirport.invalid &&
+          (takeoffAirport.dirty || takeoffAirport.touched)
+        "
+        >should match the pattern (e.g., LAX).
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -24,21 +53,18 @@
         type="text"
         required
         placeholder="Ex. JFK"
+        pattern="[A-Z]{3}"
         [(ngModel)]="flight.landingAirport"
         name="landingAirport"
+        #landingAirport="ngModel"
       />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Takeoff Airport:</mat-label>
-      <input
-        matInput
-        type="text"
-        required
-        placeholder="Ex. LAX"
-        [(ngModel)]="flight.takeoffAirport"
-        name="takeoffAirport"
-      />
+      <mat-error
+        *ngIf="
+          landingAirport.invalid &&
+          (landingAirport.dirty || landingAirport.touched)
+        "
+        >should match the pattern (e.g., JFK).
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -58,7 +84,11 @@
         required
         [(ngModel)]="flight.takeoffTime"
         name="takeoffTime"
+        #takeoffTime="ngModel"
       />
+      <mat-error *ngIf="takeoffTime.invalid && (takeoffTime.dirty || takeoffTime.touched)">
+        <span *ngIf="takeoffTime.errors?.required">Takeoff time is required.</span>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -69,7 +99,21 @@
         required
         [(ngModel)]="flight.landingTime"
         name="landingTime"
+        #landingTime="ngModel"
+        [appLandingTimeValidator]="flight.takeoffTime"
       />
+      <mat-error
+        *ngIf="
+          landingTime.invalid && (landingTime.dirty || landingTime.touched)
+        "
+      >
+        <span *ngIf="landingTime.errors?.required"
+          >Landing time is required.</span
+        >
+        <span *ngIf="landingTime.errors?.invalidLandingTime"
+          >Landing time must be after takeoff time.</span
+        >
+      </mat-error>
     </mat-form-field>
     <mat-dialog-actions align="end">
       <button mat-button type="submit" [disabled]="!flightForm.form.valid">

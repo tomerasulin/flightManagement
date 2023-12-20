@@ -1,10 +1,8 @@
-<form class="search-form" (submit)="onSubmit($event)">
-  <mat-form-field class="search-full-width">
-    <mat-label>Flight Number or takeoff/landing Airports</mat-label>
-    <input
-      matInput
-      placeholder="Ex. AB1234"
-      (input)="term = $event.target.value"
-    />
-  </mat-form-field>
-</form>
+<mat-form-field class="search-full-width">
+  <mat-label>Flight Number or takeoff/landing Airports</mat-label>
+  <input
+    matInput
+    placeholder="Ex. AB1234"
+    (input)="onInput($event.target.value)"
+  />
+</mat-form-field>
