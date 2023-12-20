@@ -12,13 +12,13 @@ jobs:
         with:
           sparse-checkout: .
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: 14
       - name: Install dependencies
         run: npm install
       - name: Build application
-        run: npm run build
+        run: npm run build:prod
       - name: Install AWS CLI
         run: |
           sudo apt-get update
