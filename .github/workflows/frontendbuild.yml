@@ -35,4 +35,4 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
         run: |
-          aws s3 sync ./dist/flight-management-angular/browser s3://${{ env.S3_BUCKET_NAME }} --delete
+          aws s3 sync ./dist/flight-management-angular s3://${{ env.S3_BUCKET_NAME }} --delete
