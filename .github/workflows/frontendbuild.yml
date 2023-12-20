@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          sparse-checkout: .
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
