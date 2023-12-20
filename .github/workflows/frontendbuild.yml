@@ -36,3 +36,4 @@ jobs:
           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
         run: |
           aws s3 sync ./dist/flight-management-angular s3://${{ env.S3_BUCKET_NAME }} --delete
+        working-directory: ./flight-management-angular
