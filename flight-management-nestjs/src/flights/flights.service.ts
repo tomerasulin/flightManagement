@@ -16,8 +16,11 @@ export class FlightsService {
     interval(300)
       .pipe(
         switchMap(async () => {
-          this.randomUpdates();
-          const res = await this.findAll();
+          let res = await this.findAll();
+          if(res.length > 0){
+            this.randomUpdates();
+            res = await this.findAll();
+          }
           this.gateway.server.emit('flights', res);
         }),
       )
