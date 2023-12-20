@@ -21,9 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { LandingTimeValidatorDirective } from './landing-time-validator.directive';
-import { environment } from './environments/environment';
 
-const config: SocketIoConfig = { url: environment.API_BASE_URL, options: {} };
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [
