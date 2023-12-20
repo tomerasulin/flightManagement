@@ -4,6 +4,8 @@ A flight management app for an airline company. Monitor real-time data from flig
 
 ![App Diagram](./flightManagementDiagram.png)
 
+[App Demonstartion](http://flightmanagement.ta.s3-website.eu-north-1.amazonaws.com)
+
 ## Features
 
 1. A list view of all flights registered in the system, always up to date with their current data on the server.
