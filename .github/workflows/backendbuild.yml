@@ -1,0 +1,27 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - feature/cicd
+
+env:
+  APP_VERSION: v1.0.${{ github.run_number }}
+
+jobs:
+  build:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Deploy to AWS EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_INSTANCE_PUBLIC_IP }}
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }} # store the SSH password as a secret in the repository
+          script: |
+            cd /home/ubuntu/flightManagement-kubiya
+            sudo /usr/local/bin/docker-compose  down || true
+            sudo /usr/local/bin/docker-compose -f docker-compose-test.yml up --build -d || true
