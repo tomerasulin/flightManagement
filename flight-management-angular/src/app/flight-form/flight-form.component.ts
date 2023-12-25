@@ -32,14 +32,14 @@ export class FlightFormComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.flightService.getFlights().subscribe((flights) => {
-      this.flights = flights;
-    });
+    this.flights = this.flightService.flights.value;
   }
 
   onSubmit(flightForm: NgForm) {
     const flightData: Flight = flightForm.value as Flight;
-    const targetFlight = this.flights.find(flight => flight.flightNumber === flightData.flightNumber);
+    const targetFlight = this.flights.find(
+      (flight) => flight.flightNumber === flightData.flightNumber
+    );
 
     if (targetFlight) {
       this.flightService.updateFlight(targetFlight._id, flightData);
