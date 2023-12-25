@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     FlightsModule,
-    MongooseModule.forRoot('mongodb://13.48.27.215:27017/flightsdb'),
+    MongooseModule.forRoot('mongodb://16.170.208.144:27017/flightsdb'),
   ],
   controllers: [],
   providers: [],
