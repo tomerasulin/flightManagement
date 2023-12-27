@@ -14,7 +14,7 @@ export class FlightsService {
   ) {}
 
   async startPeriodUpate() {
-    interval(300)
+    interval(1000)
       .pipe(
         switchMap(async () => {
           let res = await this.findAll();
@@ -166,6 +166,11 @@ export class FlightsService {
       Math.floor(timeAsNumberLanding / 100),
       timeAsNumberLanding % 100,
     );
+
+    this.gateway.server.emit('time-delay', {
+      timeDelay: randomDelay,
+      flight_id: flight._id,
+    });
 
     await this.flightsModel
       .findByIdAndUpdate(
