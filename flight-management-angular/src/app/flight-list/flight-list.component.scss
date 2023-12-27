@@ -1,5 +1,7 @@
 .flicker {
   background-color: #ff7f7f;
+  width: 50px;
+  padding: 0;
 }
 
 .table_container {
@@ -8,7 +10,7 @@
   align-items: center;
   height: 100vh;
   margin: auto;
-  max-width: 756px;
+  max-width: 856px;
   width: 100%;
 }
 
@@ -16,7 +18,7 @@
   text-align: center;
   padding: 0 10px;
   vertical-align: middle;
-  max-width: 150px;
+  width: 150px;
 }
 
 .mdc-data-table__table {
@@ -25,6 +27,8 @@
 
 .mdc-data-table__header-cell {
   text-align: center;
+  width: 150px;
+  vertical-align: middle;
 }
 
 .cell-content {
