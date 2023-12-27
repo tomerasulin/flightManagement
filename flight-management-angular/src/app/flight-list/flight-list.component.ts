@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FlightService } from '../flight.service';
 import { Flight } from '../flight.model';
 import { Observable } from 'rxjs';
@@ -11,9 +11,7 @@ import { Observable } from 'rxjs';
 export class FlightListComponent implements OnInit {
   constructor(private flightService: FlightService) {}
 
-  @Input() filteredFlights: Flight[] = [];
-
-  flights$: Observable<Flight[]> = new Observable<Flight[]>();
+  flights: Flight[] = [];
 
   headers: string[] = [
     'flightNumber',
@@ -25,23 +23,10 @@ export class FlightListComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.loadFlights();
-  }
+    this.flightService.flights.subscribe((res) => {
+      this.flights = res;
+    });
+    this.flightService.getSocketFlights();
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['filteredFlights'] && !changes['filteredFlights'].firstChange) {
-      this.loadFlights();
-    }
-  }
-
-  loadFlights() {
-    if (this.filteredFlights.length > 0) {
-      this.flights$ = new Observable<Flight[]>((observer) => {
-        observer.next(this.filteredFlights);
-        observer.complete();
-      });
-    } else {
-      this.flights$ = this.flightService.getInitialFlights();
-    }
   }
 }

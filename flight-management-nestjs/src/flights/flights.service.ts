@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Flight, FlightDocument } from './flight.schema';
 import { FlightGateway } from './flight.gateway';
 import { interval, switchMap } from 'rxjs';
+import { AIRPORTS } from './mock-airports';
 
 @Injectable()
 export class FlightsService {
@@ -17,7 +18,7 @@ export class FlightsService {
       .pipe(
         switchMap(async () => {
           let res = await this.findAll();
-          if(res.length > 0){
+          if (res.length > 0) {
             this.randomUpdates();
             res = await this.findAll();
           }
@@ -182,20 +183,7 @@ export class FlightsService {
   }
 
   private async updateLandingAirport(flight: Flight) {
-    const airports = [
-      'JFK',
-      'LHR',
-      'CDG',
-      'DXB',
-      'SYD',
-      'ICN',
-      'SIN',
-      'PEK',
-      'MUC',
-      'YYZ',
-    ];
-
-    const randomAirport = airports[Math.floor(Math.random() * airports.length)];
+    const randomAirport = AIRPORTS[Math.floor(Math.random() * AIRPORTS.length)];
 
     await this.flightsModel
       .findByIdAndUpdate(
