@@ -1,4 +1,9 @@
-<h1 mat-dialog-title>Create/Edit Flight</h1>
+<div class="dialog_header">
+  <h1 mat-dialog-title>Create/Edit Flight</h1>
+  <button mat-dialog-close mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 <mat-dialog-content>
   <form
     (ngSubmit)="onSubmit(flightForm)"
@@ -86,8 +91,14 @@
         name="takeoffTime"
         #takeoffTime="ngModel"
       />
-      <mat-error *ngIf="takeoffTime.invalid && (takeoffTime.dirty || takeoffTime.touched)">
-        <span *ngIf="takeoffTime.errors?.required">Takeoff time is required.</span>
+      <mat-error
+        *ngIf="
+          takeoffTime.invalid && (takeoffTime.dirty || takeoffTime.touched)
+        "
+      >
+        <span *ngIf="takeoffTime.errors?.required"
+          >Takeoff time is required.</span
+        >
       </mat-error>
     </mat-form-field>
 

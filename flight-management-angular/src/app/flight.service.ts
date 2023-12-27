@@ -13,6 +13,8 @@ const API_BASE_URL = 'http://localhost:3000';
 export class FlightService {
   flights = new BehaviorSubject<Flight[]>(FLIGHTS);
   filteredFlights: Flight[] = [];
+  timeDelay = new BehaviorSubject<number>(0);
+  flightID = new BehaviorSubject<string>('');
 
   constructor(private socket: Socket, private http: HttpClient) {}
 
@@ -23,6 +25,14 @@ export class FlightService {
         this.flights.next(this.filteredFlights);
       }
     });
+    this.socket
+      .fromEvent<{ flight_id: string; timeDelay: number }>('time-delay')
+      .subscribe((res) => {
+        const { flight_id, timeDelay } = res;
+
+        this.flightID.next(flight_id);
+        this.timeDelay.next(timeDelay);
+      });
   }
 
   getFlights(): Observable<Flight[]> {

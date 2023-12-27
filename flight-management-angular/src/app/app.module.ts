@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FlightListComponent } from './flight-list/flight-list.component';
@@ -46,6 +46,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     MatSelectModule,
     MatButtonModule,
     HttpClientModule,
+    MatIconModule,
     SocketIoModule.forRoot(config),
   ],
   providers: [FlightListComponent],
