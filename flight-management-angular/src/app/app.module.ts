@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FlightListComponent } from './flight-list/flight-list.component';
@@ -21,9 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { LandingTimeValidatorDirective } from './landing-time-validator.directive';
-import { environment } from './environments/environment';
 
-const config: SocketIoConfig = { url: environment.API_BASE_URL, options: {} };
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [
@@ -47,6 +46,7 @@ const config: SocketIoConfig = { url: environment.API_BASE_URL, options: {} };
     MatSelectModule,
     MatButtonModule,
     HttpClientModule,
+    MatIconModule,
     SocketIoModule.forRoot(config),
   ],
   providers: [FlightListComponent],

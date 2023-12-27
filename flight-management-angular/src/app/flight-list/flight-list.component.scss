@@ -1,3 +1,64 @@
 .flicker {
   background-color: #ff7f7f;
 }
+
+.table_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: auto;
+  max-width: 900px;
+  width: 100%;
+}
+
+.mdc-data-table__cell {
+  text-align: center;
+  padding: 0 30px;
+  vertical-align: middle;
+}
+
+.mdc-data-table__table {
+  height: 100vh;
+}
+
+.mdc-data-table__header-cell {
+  text-align: center;
+}
+
+.cell-content {
+  position: relative;
+}
+
+.delay-span {
+  display: block;
+  background-color: #ffcc00;
+  color: #333;
+  padding: 4px 8px;
+  border-radius: 4px;
+  position: absolute;
+  top: 0px;
+  right: 35%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeInOut {
+  animation: fadeIn 0.5s ease-out, fadeOut 1.5s 1s ease-in;
+}

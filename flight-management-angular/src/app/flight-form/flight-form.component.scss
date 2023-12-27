@@ -3,11 +3,18 @@
   flex-direction: column;
 }
 
-mat-form-field {
-  margin-bottom: 20px;
+mat-error {
+  white-space: normal;
+  margin-top: 2px;
 }
 
-mat-error {
-  white-space: normal; 
-  margin-top: 2px;
+.dialog_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mdc-dialog__content {
+  padding: 0 24px 0 24px;
+  max-height: 66vh;
 }

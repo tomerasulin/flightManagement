@@ -1,19 +1,29 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FlightService } from '../flight.service';
 import { Flight } from '../flight.model';
-import { Observable } from 'rxjs';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-flight-list',
   templateUrl: './flight-list.component.html',
   styleUrl: './flight-list.component.scss',
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({ opacity: 0 })),
+      transition('void <=> *', animate(500)),
+    ]),
+  ],
 })
 export class FlightListComponent implements OnInit {
   constructor(private flightService: FlightService) {}
 
-  @Input() filteredFlights: Flight[] = [];
-
-  flights$: Observable<Flight[]> = new Observable<Flight[]>();
+  flights: Flight[] = [];
 
   headers: string[] = [
     'flightNumber',
@@ -24,24 +34,22 @@ export class FlightListComponent implements OnInit {
     'landingTime',
   ];
 
+  timeDelay: number = 0;
+  flightID: string = '';
+
   ngOnInit(): void {
-    this.loadFlights();
-  }
+    this.flightService.flights.subscribe((flights) => {
+      this.flights = flights;
+    });
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['filteredFlights'] && !changes['filteredFlights'].firstChange) {
-      this.loadFlights();
-    }
-  }
+    this.flightService.timeDelay.subscribe((delay) => {
+      this.timeDelay = delay;
+    });
 
-  loadFlights() {
-    if (this.filteredFlights.length > 0) {
-      this.flights$ = new Observable<Flight[]>((observer) => {
-        observer.next(this.filteredFlights);
-        observer.complete();
-      });
-    } else {
-      this.flights$ = this.flightService.getInitialFlights();
-    }
+    this.flightService.flightID.subscribe((id) => {
+      this.flightID = id;
+    });
+
+    this.flightService.getSocketFlights();
   }
 }

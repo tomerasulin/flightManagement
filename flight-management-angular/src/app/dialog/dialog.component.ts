@@ -13,6 +13,9 @@ export class DialogComponent implements OnInit {
   ngOnInit(): void {}
 
   openDialog() {
-    this.dialog.open(FlightFormComponent);
+    const dialogRef = this.dialog.open(FlightFormComponent, {
+      width: '600px',
+      disableClose: true,
+    });
   }
 }
