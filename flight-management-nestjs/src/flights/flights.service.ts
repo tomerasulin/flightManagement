@@ -116,13 +116,13 @@ export class FlightsService {
         break;
       // time delay
       case 2:
-        if (randomFlight.status !== 'malfunction')
-          this.updateTime(randomFlight);
+        this.updateTime(randomFlight);
+
         break;
       // landing airport
       case 3:
-        if (randomFlight.status !== 'malfunction')
-          this.updateLandingAirport(randomFlight);
+        this.updateLandingAirport(randomFlight);
+
         break;
       default:
         break;
