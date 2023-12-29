@@ -10,7 +10,7 @@ services:
     environment:
       NODE_ENV: development
       PORT: 3000
-      DATABASE_URL: mongodb://mongodb:27017/flightsdb
+      DATABASE_URL: mongodb://username:password@mongodb:27017
     depends_on:
       - mongodb
     ports:
@@ -27,13 +27,16 @@ services:
       - 4200:80
     expose:
       - 80
+    depends_on:
+      - flight-management-nestjs
   mongodb:
     image: mongo:latest
     ports:
       - 27017:27017
     volumes:
-      - dbdata6:/data/db
+      - dbdata8:/data/db
     environment:
-      MONGO_DB: flightsdb
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
 volumes:
-  dbdata6:
+  dbdata8:
