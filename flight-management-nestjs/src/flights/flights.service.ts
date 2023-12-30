@@ -14,7 +14,7 @@ export class FlightsService {
   ) {}
 
   async startPeriodUpate() {
-    interval(1000)
+    interval(300)
       .pipe(
         switchMap(async () => {
           let res = await this.findAll();
