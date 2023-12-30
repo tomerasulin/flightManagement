@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./flight-management-nestjs:/usr/src/app
-      - /usr/src/app/node_modules
     environment:
       NODE_ENV: development
       PORT: 3000
@@ -22,7 +21,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./flight-management-angular:/usr/frontend/src/app
-      - /usr/frontend/src/app/node_modules
     ports:
       - 4200:80
     expose:
