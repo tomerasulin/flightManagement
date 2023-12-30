@@ -4,8 +4,7 @@ import { Flight } from './flight.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Socket } from 'ngx-socket-io';
 import { FLIGHTS } from './mock-flights';
-
-const API_BASE_URL = 'http://localhost:3000';
+import { environment } from './environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +36,7 @@ export class FlightService {
 
   getFlights(): Observable<Flight[]> {
     return this.http
-      .get<Flight[]>(`${API_BASE_URL}/flights`)
+      .get<Flight[]>(`${environment.API_BASE_URL}/flights`)
       .pipe(catchError(this.handleError));
   }
 
@@ -54,13 +53,13 @@ export class FlightService {
 
   getFlight(flightNumber: string): Observable<Flight> {
     return this.http
-      .get<Flight>(`${API_BASE_URL}/flights/${flightNumber}`)
+      .get<Flight>(`${environment.API_BASE_URL}/flights/${flightNumber}`)
       .pipe(catchError(this.handleError));
   }
 
   searchFlights(term: string): Observable<Flight[]> {
     return this.http
-      .get<Flight[]>(`${API_BASE_URL}/flights/filter?term=${term}`)
+      .get<Flight[]>(`${environment.API_BASE_URL}/flights/filter?term=${term}`)
       .pipe(catchError(this.handleError));
   }
 

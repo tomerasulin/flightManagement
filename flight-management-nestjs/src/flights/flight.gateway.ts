@@ -10,7 +10,7 @@ import { FlightsService } from './flights.service';
 import { Inject, forwardRef } from '@nestjs/common';
 
 @WebSocketGateway({
-  cors: { origin: ['http://localhost:4200', 'http://13.48.27.215:3000'] },
+  cors: { origin: ['http://localhost:4200', 'http://16.170.208.144:4200', 'http://flightmanagement.ta.s3-website.eu-north-1.amazonaws.com'] },
 })
 export class FlightGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()

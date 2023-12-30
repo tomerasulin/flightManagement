@@ -1,0 +1,40 @@
+version: '3'
+services:
+  flight-management-nestjs:
+    build:
+      context: ./flight-management-nestjs
+      dockerfile: Dockerfile
+    volumes:
+      - ./flight-management-nestjs:/usr/src/app
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_URL: mongodb://username:password@mongodb:27017
+    depends_on:
+      - mongodb
+    ports:
+      - 3000:3000
+
+  flight-management-angular:
+    build:
+      context: ./flight-management-angular
+      dockerfile: Dockerfile
+    volumes:
+      - ./flight-management-angular:/usr/frontend/src/app
+    ports:
+      - 4200:80
+    expose:
+      - 80
+    depends_on:
+      - flight-management-nestjs
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - dbdata8:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+volumes:
+  dbdata8:

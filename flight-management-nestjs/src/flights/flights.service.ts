@@ -14,7 +14,7 @@ export class FlightsService {
   ) {}
 
   async startPeriodUpate() {
-    interval(1000)
+    interval(300)
       .pipe(
         switchMap(async () => {
           let res = await this.findAll();
@@ -117,10 +117,12 @@ export class FlightsService {
       // time delay
       case 2:
         this.updateTime(randomFlight);
+
         break;
       // landing airport
       case 3:
         this.updateLandingAirport(randomFlight);
+
         break;
       default:
         break;
