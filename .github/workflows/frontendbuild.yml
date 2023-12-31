@@ -2,7 +2,7 @@ name: Deploy to S3 Bucket
 on:
   push:
     branches:
-      - dev
+      - feature/cicd
 jobs:
   deploy:
     runs-on: ubuntu-latest

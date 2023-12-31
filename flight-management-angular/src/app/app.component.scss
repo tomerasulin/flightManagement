@@ -1,7 +1,9 @@
 .header {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  column-gap: 150px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 856px;
+  width: 100%;
 }
 
 .header_title {
